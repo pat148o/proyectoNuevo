@@ -19,7 +19,7 @@
     
     <div class="container">
         <!-- Contenido Principal -->
-           @yield('principal')
+           @yield('login')
     </div>
 
    

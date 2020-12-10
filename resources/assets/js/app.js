@@ -26,9 +26,9 @@ Vue.component('mesas', require('./components/Mesas.vue'));
 Vue.component('pedidos', require('./components/Pedidos.vue'));
 Vue.component('productos', require('./components/Productos.vue'));
 Vue.component('prov_productos', require('./components/Prov_productos.vue'));
-vue.component('proveedores',require('./components/Proveedores.vue'));
+Vue.component('proveedores',require('./components/Proveedores.vue'));
 Vue.component('sali_productos', require('./components/Sali_productos.vue'));
-Vue.component('tipo_productos', require('./components/tipo_productos.vue'));
+Vue.component('tipo_productos', require('./components/Tipo_productos.vue'));
 Vue.component('users', require('./components/users.vue'));
 const app = new Vue({
     el: '#app',

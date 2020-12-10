@@ -21,6 +21,8 @@
 Route::get('/','Auth\LoginController@mostrarLogin');
 Route::post('/login','Auth\LoginController@login')->name('login');
 
+Route::post('/logout','Auth\LoginController@logout')->name('logout');
+
 Route::get('/main', function () {
     return view('contenido/contenido');
 })->name('main');
@@ -40,80 +42,80 @@ Route::put('/clientes/actualizar','clientesController@update');
 Route::post('/clientes/eliminar','clientesController@destroy');
 
 Route::get('empleados','empleadosController@index');
-Route::get('getempleados ','empleadosController@get');
-Route::post('/empleados /registrar','empleadosController@store');
-Route::put('/ empleados/actualizar','empleadosController@update');
-Route::post('/empleados /eliminar','empleadosController@destroy');
+Route::get('getempleados','empleadosController@getEmpleados');
+Route::post('/empleados/registrar','empleadosController@store');
+Route::put('/empleados/actualizar','empleadosController@update');
+Route::post('/empleados/eliminar','empleadosController@destroy');
 
 
 Route::get('empresas','empresasController@index');
-Route::get('getempresas  ','empresasController@get');
-Route::post('/ empresas/registrar','empresasController@store');
-Route::put('/empresas /actualizar','empresasController@update');
-Route::post('/ empresas/eliminar','empresasController@destroy');
+Route::get('getempresas','empresasController@getEmpresas');
+Route::post('/empresas/registrar','empresasController@store');
+Route::put('/empresas/actualizar','empresasController@update');
+Route::post('/empresas/eliminar','empresasController@destroy');
 
 
-Route::get('ent_produc  ','ent_productosController@index');
-Route::get('getent_productos','ent_productosController@get');
-Route::post('/ ent_productos/registrar','ent_productosController@store');
-Route::put('/ent_productos /actualizar','ent_productosController@update');
-Route::post('/ent_productos /eliminar','ent_productosController@destroy');
+Route::get('ent_productos','ent_productosController@index');
+Route::get('getent_productos','ent_productosController@getEnt_productos');
+Route::post('/ent_productos/registrar','ent_productosController@store');
+Route::put('/ent_productos/actualizar','ent_productosController@update');
+Route::post('/ent_productos/eliminar','ent_productosController@destroy');
 
 
-Route::get('facturas ','facturasController@index');
-Route::get('getfacturas  ','facturasController@get');
-Route::post('/ facturas/registrar','facturasController@store');
-Route::put('/ facturas/actualizar','facturasController@update');
-Route::post('/ facturas/eliminar','facturasController@destroy');
+Route::get('facturas','facturasController@index');
+Route::get('getfacturas','facturasController@getFacturas');
+Route::post('/facturas/registrar','facturasController@store');
+Route::put('/facturas/actualizar','facturasController@update');
+Route::post('/facturas/eliminar','facturasController@destroy');
 
 
-Route::get('mesas ','mesasController@index');
-Route::get('get  ','mesasController@get');
-Route::post('/mesas /registrar','mesasController@store');
-Route::put('/ mesas/actualizar','mesasController@update');
-Route::post('/ mesas/eliminar','mesasController@destroy');
+Route::get('mesas','mesasController@index');
+Route::get('getmesas','mesasController@getMesas');
+Route::post('/mesas/registrar','mesasController@store');
+Route::put('/mesas/actualizar','mesasController@update');
+Route::post('/mesas/eliminar','mesasController@destroy');
 
 
 Route::get('pedidos','pedidosController@index');
-Route::get('get  ','pedidosController@get');
-Route::post('/pedidos /registrar','pedidosController@store');
-Route::put('/ pedidos/actualizar','pedidosController@update');
-Route::post('/ pedidos/eliminar','pedidosController@destroy');
+Route::get('getpedidos','pedidosController@getPedidos');
+Route::post('/pedidos/registrar','pedidosController@store');
+Route::put('/pedidos/actualizar','pedidosController@update');
+Route::post('/pedidos/eliminar','pedidosController@destroy');
 
 
 Route::get('productos','productosController@index');
-Route::get('getproductos  ','productosController@get');
-Route::post('/productos /registrar','productosController@store');
-Route::put('/productos /actualizar','productosController@update');
-Route::post('/productos /eliminar','productosController@destroy');
+Route::get('getproductos','productosController@getProductos');
+Route::post('/productos/registrar','productosController@store');
+Route::put('/productos/actualizar','productosController@update');
+Route::post('/productos/eliminar','productosController@destroy');
 
 
-Route::get('prov_productos ','prov_productosController@index');
-Route::get('getprov_productos  ','prov_productosController@get');
-Route::post('/prov_productos /registrar','prov_productosController@store');
-Route::put('/ prov_productos/actualizar','prov_productosController@update');
-Route::post('/prov_productos /eliminar','prov_productosController@destroy');
+Route::get('prov_productos','prov_productosController@index');
+Route::get('getprov_productos','prov_productosController@getProv_productos');
+Route::post('/prov_productos/registrar','prov_productosController@store');
+Route::put('/prov_productos/actualizar','prov_productosController@update');
+Route::post('/prov_productos/eliminar','prov_productosController@destroy');
 
 
-Route::get('proveedores ','proveedoresController@index');
-Route::get('getproveedores  ','proveedoresController@get');
-Route::post('/ proveedores/registrar','proveedoresController@store');
-Route::put('/proveedores /actualizar','proveedoresController@update');
-Route::post('/proveedores /eliminar','proveedoresController@destroy');
+Route::get('proveedores','proveedoresController@index');
+Route::get('getproveedores','proveedoresController@getProveedores');
+Route::post('/proveedores/registrar','proveedoresController@store');
+Route::put('/proveedores/actualizar','proveedoresController@update');
+Route::post('/proveedores/eliminar','proveedoresController@destroy');
 
 
 Route::get('sali_productos','sali_productosController@index');
-Route::get('getsali_productos  ','sali_productosController@get');
-Route::post('/sali_productos /registrar','sali_productosController@store');
-Route::put('/sali_productos /actualizar','sali_productosController@update');
-Route::post('/sali_productos /eliminar','sali_productosController@destroy');
+Route::get('getsali_productos','sali_productosController@getSali_productos');
+Route::post('/sali_productos/registrar','sali_productosController@store');
+Route::put('/sali_productos/actualizar','sali_productosController@update');
+Route::post('/sali_productos/eliminar','sali_productosController@destroy');
 
 
-Route::get('tipo_productos ','tipo_productosController@index');
-Route::get('gettipo_productos  ','tipo_productosController@get');
-Route::post('/tipo_productos /registrar','tipo_productosController@store');
-Route::put('/tipo_productos /actualizar','tipo_productosController@update');
-Route::post('/tipo_productos /eliminar','tipo_productosController@destroy');
+Route::get('tipo_productos','tipo_productosController@index');
+Route::get('gettipo_productos','tipo_productosController@getTipo_productos');
+Route::post('/tipo_productos/registrar','tipo_productosController@store');
+Route::put('/tipo_productos/actualizar','tipo_productosController@update');
+Route::post('/tipo_productos/eliminar','tipo_productosController@destroy');
 
 
 Route::get('users','usersController@index');

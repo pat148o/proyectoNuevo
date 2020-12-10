@@ -33,7 +33,12 @@ class LoginController extends Controller
     }
 
     public function mostrarLogin(){
-        return view('Auth.login');
+        return view('auth.login');
 
+    }
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        return redirect('/');
     }
 }

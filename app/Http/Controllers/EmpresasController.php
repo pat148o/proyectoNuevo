@@ -3,82 +3,79 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Empresa;
 
 class EmpresasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    //mostrar datos de la tabla
+    public function index(Request $request)
     {
-        //
-    }
+        $buscar=$request->buscar;
+        $criterio=$request->criterio;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        if ($buscar=='') {
+            $empresas= Empresa::orderBy('nombre','asc')->paginate(4);
+        }else {
+            $empresas= Empresa::where($criterio, 'like', '%'.$buscar. '%')->orderBy('nombre','asc')->paginate(4);
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+        // GET para obtener
+        // POST guardar en la bd
+        // PUT actualizar o eliminar
+                
+        return [
+
+            'pagination'=>[
+                'total'=> $empresas -> total(),
+                'current_page'=> $empresas -> currentPage(),
+                'per_page'=> $empresas -> perPage(),
+                'last_page'=> $empresas -> lastPage(),
+                'from'=> $empresas -> firstItem(),
+                'to'=> $empresas -> lastItem(),
+            ],
+            'empresas'=>$empresas
+        ];
+    }
+    
+    //guardar datos en la bd
     public function store(Request $request)
     {
-        //
+        $empresas= new Empresa();
+        $empresas->nombre = $request->nombre;
+        $empresas->propietario = $request->propietario;
+        $empresas->nit = $request->nit;
+        $empresas->regimen = $request->regimen;
+        $empresas->dir = $request->dir;
+        $empresas->tel = $request->tel;
+        
+        $empresas->save();
+    }
+    
+    //actualizar datos
+    public function update(Request $request)
+    {
+        $empresas= Empresa::findOrfail($request->id);
+        $empresas->nombre = $request->nombre;
+        $empresas->propietario = $request->propietario;
+        $empresas->nit = $request->nit;
+        $empresas->regimen = $request->regimen;
+        $empresas->dir = $request->dir;
+        $empresas->tel = $request->tel;
+        
+        $empresas->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    //eliminar datos
+    public function destroy(Request $request)
     {
-        //
+        $empresas= Empresa::findOrfail($request->id);
+        $empresas->delete();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function getEmpresas(Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $empresas = Empresa::orderBy('nombre', 'asc')->get();
+        return [
+            'empresas'=>$empresas];
     }
 }

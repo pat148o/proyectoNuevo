@@ -11,40 +11,12 @@
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-bag"></i> Cafeteria</a>
                 <ul class="nav-dropdown-items">
 
-                <li @click="menu=1" class="nav-item">
-                    <a class="nav-link" href="#"><i class="icon-bag"></i>Cargos</a>
-                </li>
-            
-                    <li @click="menu=2" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-bag"></i>Clientes</a>
-                    </li>
-
-                    <li @click="menu=3" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-bag"></i>Empleados</a>
-                    </li>
-
                     <li @click="menu=4" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-bag"></i>Empresa</a>
                     </li>
                     
                     <li @click="menu=5" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-bag"></i>Entrada Productos</a>
-                    </li>
-
-                    <li @click="menu=6" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-bag"></i>Factura</a>
-                    </li>
-
-                    <li @click="menu=7" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-bag"></i>Mesas</a>
-                    </li>
-                    
-                    <li @click="menu=8" class="nav-item">
-                        <a class="nav-link" href="i#"><i class="icon-wallet"></i> Pedidos</a>
-                    </li>
-
-                    <li @click="menu=9" class="nav-item">
-                        <a class="nav-link" href="#"><i class="icon-bag"></i>Productos</a>
                     </li>
 
                     <li @click="menu=10" class="nav-item">
@@ -67,7 +39,45 @@
                         <a class="nav-link" href="#"><i class="icon-notebook"></i>Usuarios</a>
                     </li>
 
+                </ul>
+             </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i>Empleados</a>
+                <ul class="nav-dropdown-items">
 
+                    <li @click="menu=1" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-bag"></i>Cargos</a>
+                        </li>
+
+                        <li @click="menu=3" class="nav-item">
+                            <a class="nav-link" href="#"><i class="icon-bag"></i>Empleados</a>
+                        </li>
+                </ul>
+            </li>
+
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Ventas</a>
+                <ul class="nav-dropdown-items">
+
+                    <li @click="menu=2" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-bag"></i>Clientes</a>
+                    </li>
+
+                    <li @click="menu=7" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-bag"></i>Mesas</a>
+                    </li>
+                    
+                    <li @click="menu=8" class="nav-item">
+                        <a class="nav-link" href="i#"><i class="icon-wallet"></i> Pedidos</a>
+                    </li>
+
+                    <li @click="menu=9" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-bag"></i>Productos</a>
+                    </li>
+
+                    <li @click="menu=6" class="nav-item">
+                        <a class="nav-link" href="#"><i class="icon-bag"></i>Factura</a>
+                    </li>
 
 
                 </ul>
@@ -75,7 +85,7 @@
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-wallet"></i> Solicitudes</a>
                 <ul class="nav-dropdown-items">
-                    <li @click="menu=15" class="nav-item">
+                    {{-- <li @click="menu=15" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-notebook"></i>Detalle Salida</a>
                     </li>
                     <li @click="menu=16" class="nav-item">
@@ -87,7 +97,7 @@
                     </li>
                     <li @click="menu=18" class="nav-item">
                         <a class="nav-link" href="#"><i class="icon-notebook"></i>Detalle Factura</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
             

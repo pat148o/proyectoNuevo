@@ -10,7 +10,7 @@ class CargosController extends Controller
     //mostrar datos de la tabla
     public function index(Request $request)
     {
-        $buscar=$request->buscar;
+        $buscar=$request->buscar; 
         $criterio=$request->criterio;
 
         if ($buscar=='') {

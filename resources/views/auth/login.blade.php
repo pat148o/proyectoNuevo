@@ -34,7 +34,7 @@
         </div>
         <div class="card text-white bg-dark">
            <div class="card-body text-center">
-           <img src="img/g2.png">
+           <img src="img/cafe.png">
             <h3>Terrazas</h3>
             <h5 class="text-muted">Sistema inventario</h5>
            </div>

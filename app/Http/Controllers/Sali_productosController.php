@@ -3,82 +3,72 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Ent_producto;
 
-class Sali_productosController extends Controller
+class Ent_productosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    //mostrar datos de la tabla
+    public function index(Request $request)
     {
-        //
-    }
+        $buscar=$request->buscar;
+        $criterio=$request->criterio;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        if ($buscar=='') {
+            $ent_productos= Ent_producto::orderBy('nombre','asc')->paginate(4);
+        }else {
+            $ent_productos= Ent_producto::where($criterio, 'like', '%'.$buscar. '%')->orderBy('nombre','asc')->paginate(4);
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+        // GET para obtener
+        // POST guardar en la bd
+        // PUT actualizar o eliminar
+                
+        return [
+
+            'pagination'=>[
+                'total'=> $ent_productos -> total(),
+                'current_page'=> $ent_productos -> currentPage(),
+                'per_page'=> $ent_productos -> perPage(),
+                'last_page'=> $ent_productos -> lastPage(),
+                'from'=> $ent_productos -> firstItem(),
+                'to'=> $ent_productos -> lastItem(),
+            ],
+            'ent_productos'=>$ent_productos
+        ];
+    }
+    
+    //guardar datos en la bd
     public function store(Request $request)
     {
-        //
+        $ent_productos= new Ent_producto();
+        $ent_productos->nombre = $request->nombre;
+        $ent_productos->cant = $request->cant;
+        $ent_productos->num_factura = $request->num_factura;
+        $ent_productos->save();
+    }
+    
+    //actualizar datos
+    public function update(Request $request)
+    {
+        $ent_productos= Ent_producto::findOrfail($request->id);
+        $ent_productos->nombre = $request->nombre;
+        $ent_productos->cant = $request->cant;
+        $ent_productos->num_factura = $request->num_factura;
+        $ent_productos->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    //eliminar datos
+    public function destroy(Request $request)
     {
-        //
+        $ent_productos= Ent_producto::findOrfail($request->id);
+        $ent_productos->delete();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function getEnt_productos(Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $ent_productos = Ent_producto::orderBy('nombre', 'asc')->get();
+        return [
+            'ent_productos'=>$ent_productos];
     }
 }
+

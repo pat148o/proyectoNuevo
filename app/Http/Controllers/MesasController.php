@@ -3,82 +3,70 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mesa; 
 
 class MesasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    //mostrar datos de la tabla
+    public function index(Request $request)
     {
-        //
-    }
+        $buscar=$request->buscar; 
+        $criterio=$request->criterio;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        if ($buscar=='') {
+            $mesas=Mesa::orderBy('nombre','asc')->paginate(4);
+            // todo...
+        }else {
+            $mesas=Mesa::where($criterio,'like','%'.$buscar.'%')->orderBy('nombre','asc')->paginate(4);
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+        
+        
+        return [ 'pagination'=>[
+                  'total'=>$mesas->total(),
+                   'current_page'=>$mesas->currentPage(),
+                   'per_page'=>$mesas->perPage(),
+                   'last_page'=>$mesas->lastPage(),
+                   'from'=>$mesas->firstItem(),
+                   'to'=>$mesas->lastItem(),
+
+                
+        
+                ],'mesas'=>$mesas
+            
+            ];
+    }
+   //guarda datos
     public function store(Request $request)
     {
-        //
+        
+        $mesas=new Mesa();
+        $mesas->nombre=$request->nombre;
+        $mesas->ubicacion=$request->ubicacion;
+        $mesas->save();
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+   //actualiza datos
+    public function update(Request $request)
     {
-        //
+        
+        $mesas=Mesa::findOrFail($request->id);
+        $mesas->nombre=$request->nombre;
+        $mesas->ubicacion=$request->ubicacion;
+        $mesas->save();
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+   //elimina datos 
+    public function destroy(Request $request)
     {
-        //
-    }
+        
+        $mesas=Mesa::findOrFail($request->id);
+        $mesas->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function getMesas(Request $request){
+        $mesas=Mesa::orderBy('nombre','asc')->get();
+        return[
+            'mesas'=>$mesas
+        ];
     }
+    
 }

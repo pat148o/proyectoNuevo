@@ -3,82 +3,77 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Proveedore;
 
 class ProveedoresController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    //mostrar datos de la tabla
+    public function index(Request $request)
     {
-        //
-    }
+        $buscar=$request->buscar;
+        $criterio=$request->criterio;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        if ($buscar=='') {
+            $proveedores= Proveedore::orderBy('nombre','asc')->paginate(4);
+        }else {
+            $proveedores= Proveedore::where($criterio, 'like', '%'.$buscar. '%')->orderBy('nombre','asc')->paginate(4);
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+        // GET para obtener
+        // POST guardar en la bd
+        // PUT actualizar o eliminar
+                
+        return [
+
+            'pagination'=>[
+                'total'=> $proveedores -> total(),
+                'current_page'=> $proveedores -> currentPage(),
+                'per_page'=> $proveedores -> perPage(),
+                'last_page'=> $proveedores -> lastPage(),
+                'from'=> $proveedores -> firstItem(),
+                'to'=> $proveedores -> lastItem(),
+            ],
+            'proveedores'=>$proveedores
+        ];
+    }
+    
+    //guardar datos en la bd
     public function store(Request $request)
     {
-        //
+        $proveedores= new Proveedore();
+        $proveedores->nombre = $request->nombre;
+        $proveedores->dir = $request->dir;
+        $proveedores->tel = $request->tel;
+        $proveedores->nom_empresa = $request->nom_empresa;
+        $proveedores->email = $request->email;
+        $proveedores->perso_contac = $request->perso_contac;
+        $proveedores->save();
+    }
+    
+    //actualizar datos
+    public function update(Request $request)
+    {
+        $proveedores= Proveedore::findOrFail($request->id);
+        $proveedores->nombre = $request->nombre;
+        $proveedores->dir = $request->dir;
+        $proveedores->tel = $request->tel;
+        $proveedores->nom_empresa = $request->nom_empresa;
+        $proveedores->email = $request->email;
+        $proveedores->perso_contac = $request->perso_contac;
+        $proveedores->save();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    //eliminar datos
+    public function destroy(Request $request)
     {
-        //
+        $proveedores= Proveedore::findOrFail($request->id);
+        $proveedores->delete();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function getProveedores(Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $proveedores = Proveedore::orderBy('nombre', 'asc')->get();
+        return [
+            'proveedores'=>$proveedores];
     }
 }

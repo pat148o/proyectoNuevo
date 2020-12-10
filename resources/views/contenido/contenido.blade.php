@@ -12,14 +12,14 @@
 <template v-if= "menu==2">
     <clientes></clientes>
 </template>
-
 <template v-if= "menu==3">
-    <empresa></empresa>
-</template>
-
-<template v-if= "menu==4">
     <empleados></empleados>
 </template>
+
+<template v-if= "menu==4"> 
+    <empresas></empresas>
+</template>
+
 
 <template v-if= "menu==5">
     <ent_productos></ent_productos>

@@ -7,14 +7,11 @@
         <li class="breadcrumb-item active">Dashboard</li>
     </ol>            
     <div class="container-fluid">
-        <!-- {{-- <example-component></example-component>
-        <categoria></categoria> --}} -->
-        <!-- Ejemplo de tabla Listado -->
         <div class="card">
             <div class="card-header">
                 <i class="fa  fa-bookmark"></i> Cargos
                 <button type="button" class="btn btn-primary" data-toggle="modal" @click="abrirModal('guardar')">
-                    <i class="icon-plus"></i>&nbsp;Nuevo 
+                    <i class="icon-plus"></i>&nbsp;Agregar 
                 </button>
             </div>
             <div class="card-body">
@@ -24,7 +21,7 @@
                             <select class="form-control col-md-3" id="opcion" name="opcion" v-model="criterio">
                               <option value="nombre">Nombre</option>
                             </select>
-                            <input v-model="buscar" type="text" id="texto" name="texto" class="form-control" placeholder="nombre a buscar" @keypress="listCargo(1, criterio, buscar)">
+                            <input v-model="buscar" type="text" id="texto" name="texto" class="form-control" placeholder="Cargo a buscar" @keypress="listCargo(1, criterio, buscar)">
                             <button type="button" @click="listCargo(1,criterio, buscar)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                         </div>
                     </div>
@@ -79,7 +76,7 @@
                     href="#"
                     @click.prevent="cambiarPagina(pagination.current_page + 1,buscar,criterio)"
                     >Sig</a>
-                        </li>
+                        </li> 
                     </ul>
             </nav>
             </div>
@@ -101,7 +98,7 @@
                         <div class="form-group row">
                             <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                             <div class="col-md-9">
-                                <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control" placeholder="Nombre del cargo">
+                                <input type="text" v-model="nombre" id="nombre" name="nombre" class="form-control" placeholder="Nombre del Cargo">
                             </div>
                         </div>                                
                     </form>
@@ -173,11 +170,7 @@
 
             }
         },
-        validations:{
-            nombre:{
-                required
-            }
-        },
+        
         methods: {
             cambiarPagina(page,buscar,criterio){
                 let me=this;
@@ -186,19 +179,12 @@
                 //envia al metodo para traer los datos
                 me.listCargo(page,criterio,buscar);
             },
-            validarDatos(modelo){
-                const campo=this.$v[modelo];
-                if (campo) {
-                    return{
-                        "error":campo.$invalid && campo.$dirty
-                    };
-                }
-            },
+
 
         
             listCargo:function(page,criterio,buscar){
                 let me = this;
-                var url="/cargo?page="+ page+ '&criterio='+criterio+ '&buscar='+buscar;
+                var url="/cargos?page="+ page+ '&criterio='+criterio+ '&buscar='+buscar;
                 axios.get(url).then(function(response){
                     var respuesta = response.data;
                     me.arrayDatos = respuesta.cargos.data;
@@ -216,7 +202,7 @@
                 })
                 .then(function(response){
                     me.listCargo(1, me.criterio, me.buscar);
-                    me.mensaje();
+                    me.mensaje('Se guardo correctamente');
                     me.cerrarModal();
                 })
                 .catch(function(error){
@@ -224,11 +210,11 @@
                 });
                 
             },
-            mensaje(){
+            mensaje(msj){
             Swal.fire({
              position: 'center',
              icon: 'success',
-             title: 'Se guardo exitosamente',
+             title: msj,
              showConfirmButton: false,
              timer: 2000
             })
@@ -237,11 +223,11 @@
 	                let me = this;
 	                var url="/cargos/actualizar";
                     axios.put(url,{
-		            id:this.idCat,
+		            id:this.idCargo,
 		            nombre :this.nombre
                 })
                 .then(function(response){
-                    me.listCat(1, me.criterio, me.buscar);
+                    me.listCargo(1, me.criterio, me.buscar);
                     me.mensaje('Se actualizo correctamente');
                     me.cerrarModal();
                 })
@@ -260,41 +246,38 @@
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
                         cancelButtonText: 'Cancelar!',
-                        confirmButtonText: 'Confirmar, Borrado!'
+                        confirmButtonText: 'Confirmar!'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                var url = "/cargo/eliminar";
+                var url = "/cargos/eliminar";
                     axios.post(url, {
-                        idCargo: data["id"],
+                        id: data["id"],
                         })
                         .then(function (response) {
-                        me.listCargo(1,this.buscar);
-                        me.mensaje2('Se elimino correctamente.');
+                        me.listCargo(1, me.criterio, me.buscar);
                         })
                         .catch(function (error) {
                         console.log(error);
                         });
                         Swal.fire(
-                        'Deleted!',
+                        'Borrado!',
                         'Se elimino correctamente.',
                         'success'
                             )
                         }
                         })
 
-                    }
-                
-                },  
+                    },
             
             abrirModal(accion,data=[]){
                 switch(accion){
                 case'guardar':
-                this.titulo='Registrar cargos';
+                this.titulo='Registrar Cargos';
                 this.accion=0;
                 this.limpiar();
              break;
                 case 'editar':
-                this.titulo='Editar cargos';
+                this.titulo='Editar Cargos';
                 this.accion=1;
                 this.idCargo=data['id'];
                 this.nombre=data['nombre'];
@@ -311,7 +294,7 @@
             this.nombre='';
           },
             
-
+        },
             computed:{
             isActived: function() {
             return this.pagination.current_page;
